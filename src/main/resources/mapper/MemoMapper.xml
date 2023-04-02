@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shangui.mapper.MemoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shangui.model.Memo">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="tag_id" property="tagId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id, a.title, a.user_id as userId,a.content, a.tag_id AS tagId, a.status,a.create_time AS createTime, a.update_time AS updateTime,
+        a.workspace_id as workspaceId,b.color
+    </sql>
+
+    <select id="getMemoList" resultType="com.shangui.model.Memo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_memo a left join t_tag b on a.tag_id = b.id
+        <where>
+            <if test="userId!=null">
+                AND a.`user_id` = #{userId}
+            </if>
+            <if test="workspaceId!=null">
+                AND a.`workspace_id` = #{workspaceId}
+            </if>
+            <if test="tagId!=null">
+                AND a.`tag_id` = #{tagId}
+            </if>
+            <if test="searchWord!=null">
+                AND (a.content like concat ("%",#{searchWord},"%") or a.title like concat ("%",#{searchWord},"%") )
+            </if>
+            <if test="startDate!=null">
+                AND a.`create_time` &gt; #{startDate}
+            </if>
+            <if test="endDate!=null">
+                AND a.`create_time` &lt;= #{endDate}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+</mapper>

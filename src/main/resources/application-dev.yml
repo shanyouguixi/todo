@@ -1,0 +1,73 @@
+server:
+  port: 8099
+
+
+spring:
+  datasource:
+    name: washcar
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid:
+      #监控拦截统计filters
+      filters: stat
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/todo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: 123456
+
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #配置初始化大小 最小/最大
+      max-wait: 60000
+      #获取连接等待超时时间
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 0
+    password: 123456
+    jedis:
+      pool:
+        max-active: 50
+        max-wait: 5000
+        max-idle: 50
+        min-idle: 0
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:D:\\temp\\
+  mvc:
+    async:
+      #请求超时时间10秒
+      request-timeout: 10000
+#    view:
+#      prefix: classpath:/templates/
+#      suffix: .html
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.shangui.mapper
+  configuration:
+    #开启驼峰映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+  global-config:
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+
+uploadConfig:
+  filePath: D:\\temp\\
+  fileUrl: http://localhost:8099/sources/

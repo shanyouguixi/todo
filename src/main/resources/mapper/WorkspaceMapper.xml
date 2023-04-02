@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shangui.mapper.WorkspaceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shangui.model.Workspace">
+        <id column="id" property="id" />
+        <result column="space_name" property="spaceName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id, a.user_id as userId,a.space_name AS spaceName
+    </sql>
+
+    <select id="getWorkspaceList" resultType="com.shangui.model.Workspace">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_workspace a WHERE a.user_id = #{userId}
+    </select>
+
+</mapper>

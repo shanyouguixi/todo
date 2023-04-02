@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shangui.mapper.ResourceTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shangui.model.ResourceType">
+        <id column="id" property="id" />
+        <result column="type_name" property="typeName" />
+        <result column="user_id" property="userId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id, a.type_name AS typeName, a.user_id AS userId, a.create_time AS createTime, a.update_time AS updateTime
+    </sql>
+    <select id="getResourceType" resultType="com.shangui.model.Resource">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_resource_type a WHERE a.user_id = #{userId}
+        order by a.create_time desc
+    </select>
+
+</mapper>
