@@ -22,7 +22,7 @@ public class CodeGeneration {
     //作者
     private static String authorName = "shanyouguixi";
     //要生成的表名
-    private static String[] tables = {"t_resource_type","t_resource"};
+    private static String[] tables = {"t_ebook","t_ebook_tag"};
     //table前缀
     private static String[] prefix = {"t_"};
 

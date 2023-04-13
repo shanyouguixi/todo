@@ -9,10 +9,12 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -163,4 +165,7 @@ public class ShiroConfig {
     public HandlerExceptionResolver handlerExceptionResolver() {
         return new MyExceptionHandler();
     }
+
+
+
 }
